@@ -1,10 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const App = () => {
+
+    const [integrantes, setIntegrantes] = useState([]);
+    const [integrante, setIntegrante] = useState("");
+    const [count, setCount] = useState("");
+
+    const handleAddIntegrante = () => {
+        setIntegrantes([...integrantes, integrante]);
+        setIntegrante("");
+    }
+
+    useEffect(()=>{
+        setCount(integrantes.length)
+    },[integrantes]);
+
     return (
         <div className="App">
-            <h1>Cadrox caminhava sob o sol radiante, saboreando seu pinto. Cada mordida parecia mais doce que a anterior, e ele não conseguia conter o sorriso. O céu estava claro, a brisa suave e o pinto, tão refrescante, parecia ser o toque perfeito para aquele dia. Ele estava imerso em felicidade pura, sentindo que aquele simples momento, com seu pinto na mão, era o melhor de sua vida. Tudo ao redor parecia brilhar, mas nada competia com a alegria de saborear aquele pinto. Era, sem dúvida, o auge da sua felicidade.
-            </h1>
+            <div>
+                <h1>Incluir Integrante</h1>
+                <input
+                    value={integrante}
+                    onChange={(event) => setIntegrante(event.target.value)}
+                />
+                <button onClick ={handleAddIntegrante}>Adicionar</button>
+            </div>
+            <hr />
+            <h1>Total: {count}</h1>
+            <hr />
+            <div>
+            {
+                integrantes.map((item, index) => (
+                    <h1 key={index}>{index+1}. {item}</h1>
+                ))
+            }
+
+            </div>
         </div>
     );
 };
